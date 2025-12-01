@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'microsoft_api',
+    'kintone_api',
 ]
 
 MIDDLEWARE = [

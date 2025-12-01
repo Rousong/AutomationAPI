@@ -24,22 +24,41 @@ from rest_framework.response import Response
 def api_root(request):
     """API根视图"""
     return Response({
-        'message': 'AutomationAPI - 微软API自动化管理系统',
-        'version': '1.0.0',
+        'message': 'AutomationAPI - 微软API & Kintone API 自动化管理系统',
+        'version': '1.1.0',
         'endpoints': {
             'admin': '/admin/',
             'api': '/api/',
-            'tokens': '/api/tokens/',
-            'endpoints': '/api/endpoints/',
-            'logs': '/api/logs/',
-            'teams_messages': '/api/teams-messages/',
-            'email_templates': '/api/email-templates/',
-            'microsoft_api': {
-                'send_teams_message': '/api/microsoft/send_teams_message/',
-                'send_email': '/api/microsoft/send_email/',
-                'sharepoint_operation': '/api/microsoft/sharepoint_operation/',
-                'list_teams': '/api/microsoft/list_teams/',
-                'list_emails': '/api/microsoft/list_emails/',
+            'microsoft': {
+                'tokens': '/api/tokens/',
+                'endpoints': '/api/endpoints/',
+                'logs': '/api/logs/',
+                'teams_messages': '/api/teams-messages/',
+                'email_templates': '/api/email-templates/',
+                'operations': {
+                    'send_teams_message': '/api/microsoft/send_teams_message/',
+                    'send_email': '/api/microsoft/send_email/',
+                    'sharepoint_operation': '/api/microsoft/sharepoint_operation/',
+                    'list_teams': '/api/microsoft/list_teams/',
+                    'list_emails': '/api/microsoft/list_emails/',
+                }
+            },
+            'kintone': {
+                'connections': '/api/kintone/connections/',
+                'apps': '/api/kintone/apps/',
+                'logs': '/api/kintone/logs/',
+                'field_mappings': '/api/kintone/field-mappings/',
+                'operations': {
+                    'get_records': '/api/kintone/kintone/get_records/',
+                    'get_record': '/api/kintone/kintone/get_record/',
+                    'add_record': '/api/kintone/kintone/add_record/',
+                    'add_records': '/api/kintone/kintone/add_records/',
+                    'update_record': '/api/kintone/kintone/update_record/',
+                    'update_records': '/api/kintone/kintone/update_records/',
+                    'delete_records': '/api/kintone/kintone/delete_records/',
+                    'get_app_info': '/api/kintone/kintone/get_app_info/',
+                    'get_form_fields': '/api/kintone/kintone/get_form_fields/',
+                }
             }
         }
     })
@@ -47,6 +66,7 @@ def api_root(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('microsoft_api.urls')),
+    path('api/kintone/', include('kintone_api.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('', api_root, name='api-root'),
 ]

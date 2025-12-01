@@ -1,0 +1,396 @@
+{
+  "info": {
+    "name": "AutomationAPI - 微软API自动化管理系统",
+    "description": "AutomationAPI的完整API集合，包含所有端点的示例请求",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "admin",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "password",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Token管理",
+      "item": [
+        {
+          "name": "列出所有Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tokens/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tokens", ""]
+            }
+          }
+        },
+        {
+          "name": "创建Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"测试Token\",\n  \"client_id\": \"your-client-id\",\n  \"client_secret\": \"your-client-secret\",\n  \"tenant_id\": \"your-tenant-id\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tokens/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tokens", ""]
+            }
+          }
+        },
+        {
+          "name": "获取Token详情",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tokens/1/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "tokens", "1", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Teams API",
+      "item": [
+        {
+          "name": "发送频道消息",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message_type\": \"channel\",\n  \"team_id\": \"your-team-id\",\n  \"channel_id\": \"your-channel-id\",\n  \"message\": \"Hello from AutomationAPI! 🚀\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/microsoft/send_teams_message/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "microsoft", "send_teams_message", ""]
+            }
+          }
+        },
+        {
+          "name": "发送聊天消息",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message_type\": \"chat\",\n  \"chat_id\": \"your-chat-id\",\n  \"message\": \"这是一条聊天消息\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/microsoft/send_teams_message/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "microsoft", "send_teams_message", ""]
+            }
+          }
+        },
+        {
+          "name": "列出Teams团队",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/microsoft/list_teams/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "microsoft", "list_teams", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Outlook API",
+      "item": [
+        {
+          "name": "发送邮件（HTML）",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to_recipients\": [\"user@example.com\"],\n  \"cc_recipients\": [\"cc@example.com\"],\n  \"subject\": \"测试邮件\",\n  \"body\": \"<h1>你好</h1><p>这是一封测试邮件</p>\",\n  \"is_html\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/microsoft/send_email/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "microsoft", "send_email", ""]
+            }
+          }
+        },
+        {
+          "name": "发送邮件（纯文本）",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to_recipients\": [\"user@example.com\"],\n  \"subject\": \"纯文本邮件\",\n  \"body\": \"这是纯文本内容\",\n  \"is_html\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/microsoft/send_email/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "microsoft", "send_email", ""]
+            }
+          }
+        },
+        {
+          "name": "获取邮件列表",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/microsoft/list_emails/?folder=inbox&top=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "microsoft", "list_emails", ""],
+              "query": [
+                {
+                  "key": "folder",
+                  "value": "inbox"
+                },
+                {
+                  "key": "top",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "SharePoint API",
+      "item": [
+        {
+          "name": "获取站点信息",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": \"get_site\",\n  \"site_id\": \"your-site-id\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/microsoft/sharepoint_operation/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "microsoft", "sharepoint_operation", ""]
+            }
+          }
+        },
+        {
+          "name": "列出站点列表",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": \"list_lists\",\n  \"site_id\": \"your-site-id\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/microsoft/sharepoint_operation/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "microsoft", "sharepoint_operation", ""]
+            }
+          }
+        },
+        {
+          "name": "获取列表项",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": \"get_items\",\n  \"site_id\": \"your-site-id\",\n  \"list_id\": \"your-list-id\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/microsoft/sharepoint_operation/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "microsoft", "sharepoint_operation", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "API端点管理",
+      "item": [
+        {
+          "name": "列出所有端点",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/endpoints/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "endpoints", ""]
+            }
+          }
+        },
+        {
+          "name": "按服务筛选端点",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/endpoints/?service=teams",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "endpoints", ""],
+              "query": [
+                {
+                  "key": "service",
+                  "value": "teams"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "获取端点统计",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/endpoints/statistics/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "endpoints", "statistics", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "使用日志",
+      "item": [
+        {
+          "name": "查看所有日志",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/logs/",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "logs", ""]
+            }
+          }
+        },
+        {
+          "name": "按状态筛选",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/logs/?status=success",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "logs", ""],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "success"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "按时间筛选（最近7天）",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/logs/?days=7",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "logs", ""],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "7"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "获取使用统计",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/logs/statistics/?days=30",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "logs", "statistics", ""],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "30"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
